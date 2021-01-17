@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "developerstodaytest.core.apps.CoreConfig",
     "developerstodaytest.account.apps.AccountConfig",
+    "developerstodaytest.post.apps.PostConfig",
 ]
 
 MIDDLEWARE = [
