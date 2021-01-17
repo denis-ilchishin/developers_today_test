@@ -1,0 +1,40 @@
+FROM python:3.9.1-alpine
+
+ARG USER=container
+ARG USER_ID=1000
+ARG HOME_DIR=/home/${USER}
+ARG APP_DIR=${HOME_DIR}/app
+
+ENV PYTHONUNBUFFERED=1
+ENV APP_DIR=${APP_DIR}
+ENV VSCODE_EXTENSTIONS_DIR=${HOME_DIR}/.vscode-server/extensions
+
+RUN apk update --no-cache && \ 
+    apk add --no-cache \ 
+    bash \
+    shadow \
+    git \
+    gcc \
+    g++ \
+    make \
+    musl-dev \
+    libffi-dev \
+    openssl-dev \
+    python3-dev \
+    postgresql-dev
+
+RUN mkdir -p $APP_DIR && \
+    mkdir -p ${VSCODE_EXTENSTIONS_DIR} && \
+    useradd -u $USER_ID -d $HOME_DIR $USER
+
+ADD requirements.dev.txt .
+
+RUN pip install -U pip && pip install --no-cache-dir -r requirements.dev.txt
+
+WORKDIR ${APP_DIR}
+
+COPY --chown=${USER}:${USER} . .
+
+RUN chown -R ${USER}:${USER} ${HOME_DIR}
+
+USER ${USER}

@@ -1,0 +1,30 @@
+version: "3.8"
+
+volumes:
+  pg_data:
+  vscode_extensions:
+
+services:
+  db:
+    restart: unless-stopped
+    image: postgres:13.1-alpine
+    env_file: .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  api:
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      - db
+    build: 
+      dockerfile: Dockerfile.dev
+      context: .
+    volumes: 
+      - vscode_extensions:/home/container/.vscode-server/extensions
+      - .:/home/container/app
+      - ~/.ssh:/home/container/.ssh
+    command:
+      - sh
+      - -c
+      - sleep infinity
