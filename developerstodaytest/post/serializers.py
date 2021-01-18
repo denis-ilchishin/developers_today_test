@@ -32,9 +32,13 @@ class UpdatePostSerializer(serializers.ModelSerializer):
 
 class ViewPostSerializer(serializers.ModelSerializer):
     author = serializers.CharField(source="author.username")
+    upvotes = serializers.SerializerMethodField()
 
     class Meta(PostSerializerMeta):
-        fields = ("title", "author", "date_created", "date_modified", "url")
+        fields = ("title", "author", "date_created", "date_modified", "url", "upvotes")
+
+    def get_upvotes(self, post: Post):
+        return post.upvotes.count()
 
 
 class PostCommentSerializerMeta:
