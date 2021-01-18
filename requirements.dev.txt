@@ -5,3 +5,4 @@ django-environ
 black
 flake8
 django_extensions
+drf-nested-routers
