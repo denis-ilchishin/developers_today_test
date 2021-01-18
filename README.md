@@ -17,17 +17,17 @@ cp .env.example .env
 
 Run migration
 ```
-docker-compose -f docker-compose.dev.yml run --rm python manage.py migrate
+docker-compose -f docker-compose.dev.yml run --rm api python manage.py migrate
 ```
 
 Run tests
 ```
-docker-compose -f docker-compose.dev.yml run --rm python manage.py test
+docker-compose -f docker-compose.dev.yml run --rm api python manage.py test
 ```
 
 Run dev server on [http://localhost:8000](http://localhost:8000)
 ```
-docker-compose -f docker-compose.dev.yml run --rm python manage.py runserver 0.0.0.0:8000
+docker-compose -f docker-compose.dev.yml run --rm api python manage.py runserver 0.0.0.0:8000
 ```
 ---
 Or run for local development inside container (with VSCode, for example)
