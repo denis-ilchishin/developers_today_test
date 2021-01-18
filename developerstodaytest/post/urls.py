@@ -6,7 +6,7 @@ from . import views
 
 app_name = "posts"
 
-router = SimpleRouter(trailing_slash=False)
+router = SimpleRouter()
 router.register("post", views.PostsViewset, "post")
 
 urlpatterns = [path("", include(router.urls))]
