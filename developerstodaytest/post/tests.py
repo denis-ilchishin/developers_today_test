@@ -116,8 +116,6 @@ class PostCommentTestCase(APITestCase):
             post_comment_data,
         )
 
-        print(response.content)
-
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(
             PostComment.objects.get(pk=self.comment.pk).content,
