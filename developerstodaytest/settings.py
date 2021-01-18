@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "rest_framework.authtoken",
     "developerstodaytest.core.apps.CoreConfig",
     "developerstodaytest.account.apps.AccountConfig",
     "developerstodaytest.post.apps.PostConfig",
@@ -141,4 +143,11 @@ LOGGING = {
         "handlers": ["console"],
         "level": "INFO",
     },
+}
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASESS": [
+        "rest_framework.authentication.TokenAuthentication",
+    ]
 }
