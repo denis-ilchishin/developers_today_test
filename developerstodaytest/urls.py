@@ -18,6 +18,17 @@ from django.urls.conf import include
 from rest_framework.authtoken import views
 
 urlpatterns = [
-    path("auth/", views.obtain_auth_token, name="auth"),
-    path("posts/", include("developerstodaytest.post.urls")),
+    path(
+        "v1/",
+        include(
+            (
+                [
+                    path("auth/", views.obtain_auth_token, name="auth"),
+                    path("posts/", include("developerstodaytest.post.urls")),
+                ],
+                "v1",
+            ),
+            namespace="v1",
+        ),
+    )
 ]

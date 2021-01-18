@@ -8,7 +8,7 @@ class PostSerializerMeta:
     model = Post
     extra_kwargs = {
         "url": {
-            "view_name": "posts:post-detail",
+            "view_name": "v1:posts:post-detail",
         },
     }
 

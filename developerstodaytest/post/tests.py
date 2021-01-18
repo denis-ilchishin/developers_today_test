@@ -17,7 +17,7 @@ class PostTestCase(APITestCase):
         post_data = {"title": "Some new post"}
 
         self.client.force_authenticate(self.user)
-        response = self.client.post(reverse("posts:post-list"), post_data)
+        response = self.client.post(reverse("v1:posts:post-list"), post_data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Post.objects.count(), 2)
@@ -26,7 +26,7 @@ class PostTestCase(APITestCase):
     def test_list_post(self):
 
         self.client.force_authenticate(self.user)
-        response = self.client.get(reverse("posts:post-list"))
+        response = self.client.get(reverse("v1:posts:post-list"))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -35,7 +35,7 @@ class PostTestCase(APITestCase):
 
         self.client.force_authenticate(self.user)
         response = self.client.put(
-            reverse("posts:post-detail", kwargs={"pk": self.post.pk}), post_data
+            reverse("v1:posts:post-detail", kwargs={"pk": self.post.pk}), post_data
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -44,14 +44,14 @@ class PostTestCase(APITestCase):
     def test_view_post(self):
         self.client.force_authenticate(self.user)
         response = self.client.get(
-            reverse("posts:post-detail", kwargs={"pk": self.post.pk})
+            reverse("v1:posts:post-detail", kwargs={"pk": self.post.pk})
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_delete_post(self):
         self.client.force_authenticate(self.user)
         response = self.client.delete(
-            reverse("posts:post-detail", kwargs={"pk": self.post.pk})
+            reverse("v1:posts:post-detail", kwargs={"pk": self.post.pk})
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Post.objects.count(), 0)
