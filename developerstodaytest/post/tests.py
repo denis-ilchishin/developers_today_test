@@ -48,6 +48,20 @@ class PostTestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_post_upvote(self):
+        self.client.force_authenticate(self.user)
+        response = self.client.post(
+            reverse("v1:posts:post-upvote", kwargs={"pk": self.post.pk})
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_repeated_post_upvote(self):
+        self.client.force_authenticate(self.user)
+        response = self.client.post(
+            reverse("v1:posts:post-upvote", kwargs={"pk": self.post.pk})
+        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
     def test_delete_post(self):
         self.client.force_authenticate(self.user)
         response = self.client.delete(
