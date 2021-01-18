@@ -10,7 +10,7 @@ class PostTestCase(APITestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(username="newuser")
         self.post = Post.objects.create(
-            title="Some already existing post", user=self.user
+            title="Some already existing post", author=self.user
         )
 
     def test_create_post(self):

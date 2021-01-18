@@ -15,24 +15,24 @@ class PostSerializerMeta:
 
 class CreatePostSerializer(serializers.ModelSerializer):
     title = serializers.CharField(max_length=Post._meta.get_field("title").max_length)
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta(PostSerializerMeta):
-        fields = ("title", "user", "url")
+        fields = ("title", "author", "url")
 
 
 class UpdatePostSerializer(serializers.ModelSerializer):
     title = serializers.CharField(max_length=Post._meta.get_field("title").max_length)
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
     date_modified = serializers.HiddenField(default=now)
 
     class Meta(PostSerializerMeta):
-        fields = ("title", "user", "date_modified")
+        fields = ("title", "author", "date_modified")
 
 
 class ViewPostSerializer(serializers.ModelSerializer):
 
-    author = serializers.CharField(source="user.username")
+    author = serializers.CharField(source="author.username")
 
     class Meta(PostSerializerMeta):
         fields = ("title", "author", "date_created", "date_modified", "url")
