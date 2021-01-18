@@ -12,7 +12,7 @@ ENV VSCODE_EXTENSTIONS_DIR=${HOME_DIR}/.vscode-server/extensions
 RUN apk update --no-cache && \ 
     apk add --no-cache \ 
     bash \
-    ssh \
+    openssh \
     shadow \
     git \
     gcc \
