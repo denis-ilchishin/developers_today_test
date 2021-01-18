@@ -19,3 +19,28 @@ class Post(models.Model):
         verbose_name_plural = _("posts")
         ordering = ("-date_created",)
         get_latest_by = ("-date_created",)
+
+
+class PostComment(models.Model):
+    post = models.ForeignKey(
+        "Post",
+        on_delete=models.CASCADE,
+        related_name="posts",
+        related_query_name="post",
+    )
+    author = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        verbose_name=_("post comment author"),
+    )
+    content = models.CharField(max_length=250, verbose_name=_("post comment text"))
+    date_created = models.DateTimeField(default=now, verbose_name=_("date of creation"))
+    date_modified = models.DateTimeField(
+        verbose_name=_("date of modification"), null=True
+    )
+
+    class Meta:
+        verbose_name = _("post comment")
+        verbose_name_plural = _("post comments")
+        ordering = ("-date_created",)
+        get_latest_by = ("-date_created",)
