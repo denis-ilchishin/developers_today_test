@@ -1,7 +1,7 @@
 # Developers Today Test Assessment
 
 [Assessment link](https://www.notion.so/Python-test-assessment-by-DevelopsToday-901e35b8314d4ddc962bebf5041871d6)
-
+[Postman docs](https://documenter.getpostman.com/view/14225558/TVzVjGrL#8a64df16-dc10-4c95-8c39-9e75a5112cf7)
 ## How to run
 
 Clone source code
