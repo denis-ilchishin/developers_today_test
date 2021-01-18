@@ -57,6 +57,7 @@ class PostTestCase(APITestCase):
 
     def test_repeated_post_upvote(self):
         self.client.force_authenticate(self.user)
+        self.client.post(reverse("v1:posts:post-upvote", kwargs={"pk": self.post.pk}))
         response = self.client.post(
             reverse("v1:posts:post-upvote", kwargs={"pk": self.post.pk})
         )
