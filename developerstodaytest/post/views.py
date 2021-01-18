@@ -1,4 +1,5 @@
 from developerstodaytest.core.mixins import ViewsetSerializerMixin
+from django.db.models.query import QuerySet
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
@@ -16,6 +17,6 @@ class PostsViewset(ViewsetSerializerMixin, viewsets.ModelViewSet):
         ViewPostSerializer: ["list", "retrieve", "destroy"],
     }
 
-    def get_queryset(self):
-        request: Request = self.get_serializer_context()["request"]
-        return Post.objects.filter(user=request.user)
+    def get_queryset(self) -> QuerySet:
+        """Limit queryset to only current user's posts"""
+        return Post.objects.filter(user=self.request.user)
