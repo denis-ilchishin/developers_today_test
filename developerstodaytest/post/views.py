@@ -33,17 +33,19 @@ class PostCommentsViewset(ViewsetSerializerMixin, viewsets.ModelViewSet):
         serializers.ViewPostCommentSerializer: ["list", "retrieve", "destroy"],
     }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.post: Post = get_object_or_404(
+    def initial(self, *args, **kwargs):
+        self.post_instance: Post = get_object_or_404(
             Post.objects.all(), pk=self.kwargs.get("post_pk")
         )
+
+        return super().initial(*args, **kwargs)
 
     def get_queryset(self) -> QuerySet:
         """Limit queryset to only current user's post comments"""
 
-        return PostComment.objects.filter(author=self.request.user, post=self.post)
+        return PostComment.objects.filter(
+            author=self.request.user, post=self.post_instance
+        )
 
     def get_serializer_context(self) -> dict[str, Any]:
-        return {**super().get_serializer_context(), "post": self.post}
+        return {**super().get_serializer_context(), "post": self.post_instance}
