@@ -44,3 +44,26 @@ class PostComment(models.Model):
         verbose_name_plural = _("post comments")
         ordering = ("-date_created",)
         get_latest_by = ("-date_created",)
+
+
+class PostUpvote(models.Model):
+
+    post = models.ForeignKey(
+        "Post",
+        on_delete=models.CASCADE,
+        related_name="upvotes",
+        related_query_name="post",
+        verbose_name=_("post"),
+    )
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        verbose_name=_("upvote user"),
+    )
+    date_created = models.DateTimeField(default=now, verbose_name=_("date of creation"))
+
+    class Meta:
+        verbose_name = _("post upvote")
+        verbose_name_plural = _("post upvotes")
+        ordering = ("-date_created",)
+        get_latest_by = ("-date_created",)
